@@ -1,0 +1,5 @@
+#Ambiente Virtuale
+venv/
+#Lavoro di Python
+__pycache__/
+*.pyc
