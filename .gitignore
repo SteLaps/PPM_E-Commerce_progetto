@@ -3,3 +3,5 @@ venv/
 #Lavoro di Python
 __pycache__/
 *.pyc
+#Impostazioni di PyCharm
+.idea/
