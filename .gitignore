@@ -5,3 +5,5 @@ __pycache__/
 *.pyc
 #Impostazioni di PyCharm
 .idea/
+#Database
+db.sqlite3
