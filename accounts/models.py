@@ -8,11 +8,11 @@ class CustomUser(AbstractUser):
     CLIENTE = 'cliente'
     GESTORE_NEGOZIO = 'gestore negozio'
     ROLE_CHOICES = [(CLIENTE, 'cliente'),
-                    (GESTORE_NEGOZIO, 'gestore negozio')]
+                    (GESTORE_NEGOZIO, 'gestore_negozio')]
     role = models.CharField(
         choices=ROLE_CHOICES,
         default=CLIENTE,
-        max_length=100,
+        max_length=20,
         verbose_name="Ruolo")
 
     class Meta:
