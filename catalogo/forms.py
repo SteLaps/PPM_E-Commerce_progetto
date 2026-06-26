@@ -35,6 +35,19 @@ class ProductForm(forms.ModelForm):
             instance.save()
         return instance
 
+    #metodi per validazione dei dati
+    def clean_price(self):
+        price = self.cleaned_data.get('price')
+        if price is not None and price < 0:
+            raise forms.ValidationError('Il prezzo deve essere maggiore di zero.')
+        return price
+
+    def clean_stock(self):
+        stock = self.cleaned_data.get('stock')
+        if stock is not None and stock<0:
+            raise forms.ValidationError('Gli stock non possono essere negativi')
+        return stock
+
 class CategoryForm(forms.ModelForm):
     #form per la gestione delle categorie
 
@@ -88,3 +101,13 @@ class ProductSearchForm(forms.Form):
         label = 'Prezzo Massimo (€)',
         widget = forms.NumberInput(attrs={'placeholder': ''})
     )
+
+    #metodo per garantire che il prezzo minimo non sia più grande del prezzo massimo
+    def clean(self):
+        cleaned_data = super().clean()
+        min_price = cleaned_data.get('min_price')
+        max_price = cleaned_data.get('max_price')
+
+        if min_price and max_price and min_price > max_price:
+            raise forms.ValidationError('Il prezzo minimo non può essere maggiore del prezzo massimo.')
+        return cleaned_data

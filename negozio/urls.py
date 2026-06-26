@@ -3,11 +3,11 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from catalogo.views import ProductListView
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', ProductListView.as_view(), name='home'),
+    path('', RedirectView.as_view(pattern_name = 'catalogo:product_list'), name='home'),
     path('account/', include('accounts.urls', namespace='accounts')),
     path('catalogo/', include('catalogo.urls', namespace='catalogo')),
     path('', include('ordini.urls', namespace='ordini')),
