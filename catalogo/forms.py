@@ -18,7 +18,13 @@ class ProductForm(forms.ModelForm):
             'available' : "Disponibile"
         }
         widgets = {
-            'description': forms.Textarea(attrs={'rows': 4}),
+            'name': forms.TextInput(attrs={'class':'form-control'}),
+            'category': forms.Select(attrs={'class': 'form-select'}),
+            'description': forms.Textarea(attrs={'class':'form-control', 'rows': 4}),
+            'price': forms.NumberInput(attrs={'class':'form-control'}),
+            'stock': forms.NumberInput(attrs={'class': 'form-control'}),
+            'image': forms.FileInput(attrs={'class': 'form-control'}),
+            'available': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
     def save(self, commit=True):
         instance = super().save(commit=False)
@@ -44,7 +50,7 @@ class ProductForm(forms.ModelForm):
 
     def clean_stock(self):
         stock = self.cleaned_data.get('stock')
-        if stock is not None and stock<0:
+        if stock is not None and stock < 0:
             raise forms.ValidationError('Gli stock non possono essere negativi')
         return stock
 
@@ -58,6 +64,11 @@ class CategoryForm(forms.ModelForm):
             'name': "Nome Categoria",
             'description' : "Descrizione",
         }
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+        }
+
     def save(self, commit=True):
         instance = super().save(commit=False)
 
@@ -79,27 +90,28 @@ class ProductSearchForm(forms.Form):
     q = forms.CharField(
         required = False,
         label = 'Cerca',
-        widget = forms.TextInput(attrs={'placeholder': 'Cerca...'}),
+        widget = forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Cerca...'}),
     )
     category = forms.ModelChoiceField(
         queryset = Category.objects.all(),
         required = False,
         label = 'Categoria',
         empty_label = 'Tutte le Categorie',
+        widget = forms.Select(attrs={'class': 'form-control'}),
     )
     min_price = forms.DecimalField(
         required = False,
         min_value = 0,
         decimal_places = 2,
         label = 'Prezzo Minimo (€)',
-        widget = forms.NumberInput(attrs={'placeholder': ''})
+        widget = forms.NumberInput(attrs={'class': 'form-control', 'placeholder': ''})
     )
     max_price = forms.DecimalField(
         required = False,
         min_value = 0,
         decimal_places = 2,
         label = 'Prezzo Massimo (€)',
-        widget = forms.NumberInput(attrs={'placeholder': ''})
+        widget = forms.NumberInput(attrs={'class': 'form-control', 'placeholder': ''})
     )
 
     #metodo per garantire che il prezzo minimo non sia più grande del prezzo massimo

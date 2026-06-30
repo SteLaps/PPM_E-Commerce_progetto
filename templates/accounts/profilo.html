@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %} Profilo {% endblock %}
+{% block content %}
+
+<h2 class="mb-1"> Il mio profilo </h2>
+<p class="text-muted">
+    Ruolo:
+    {% if user.is_gestore_negozio %} Gestore Negozio {% else %} Cliente {% endif %}
+</p>
+
+<form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="mb-3">
+            <label class="form-label"> {{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <div class="text-danger small"> {{ field.errors | join:', ' }} </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary"> Salva Modifiche </button>
+</form>
+
+{% endblock %}

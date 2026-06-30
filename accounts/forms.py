@@ -9,29 +9,31 @@ class CustomUserRegistrationForm(UserCreationForm):
     email = forms.EmailField(
         required=True,
         label='Email',
-        widget=forms.EmailInput(attrs={'placeholder': 'emailesempio@gmail.com'}),
+        widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder': 'emailesempio@gmail.com'}),
     )
     first_name = forms.CharField(
         max_length=50,
         required=True,
         label='Nome',
-        widget=forms.TextInput(attrs={'placeholder': 'Mario'}),
+        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Mario'}),
     )
     last_name = forms.CharField(
         max_length=50,
         required=True,
         label='Cognome',
-        widget=forms.TextInput(attrs={'placeholder': 'Rossi'}),
+        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Rossi'}),
     )
 
-    class Meta:
+    class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
+        fields = UserCreationForm.Meta.fields + ('first_name', 'last_name', 'email')
 
     def save(self, commit=True):
         user = super().save(commit=False)
         user.role = CustomUser.CLIENTE
         user.email = self.cleaned_data['email']
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
         if commit:
             user.save()
         return user
@@ -42,17 +44,17 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ('first_name', 'last_name', 'email')
-        labels = {
-            'first_name': 'Nome',
-            'last_name': 'Cognome',
-            'email': 'Email',
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Nome'}),
+            'last_name': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Cognome'}),
+            'email': forms.EmailInput(attrs={'class':'form-control', 'placeholder':'email@esempio.it'}),
         }
 
 class StyledAuthenticationForm(AuthenticationForm):
     """Override per aggiungere placeholder al form di login"""
     username = forms.CharField(
-        widget=forms.TextInput(attrs={'placeholder': 'Nome', 'autofocus': True}),
+        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Nome', 'autofocus': True}),
     )
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'placeholder': 'Password'}),
+        widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder': 'Password'}),
     )

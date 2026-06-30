@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %} Login {% endblock %}
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <h2 class="mb-4"> Accedi </h2>
+
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="mb-3">
+                    <label class="form-label"> {{ field.label }} </label>
+                    {{ field }}
+                    {% if field.errors %}
+                    <div class="text-danger small"> {{ field.errors | join:', ' }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger"> {{ form.non_field_errors | join:', ' }}</div>
+            {% endif %}
+            <button type="submit" class="btn btn-primary"> Accedi </button>
+        </form>
+        <p class="mt-3"> Non hai un account? <a href="{% url 'accounts:registrazione' %}"> Registrati </a></p>
+    </div>
+</div>
+
+{% endblock %}

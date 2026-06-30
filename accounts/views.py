@@ -17,7 +17,7 @@ class RegistrationView(CreateView):
     #vista di registrazione pubblica, crea sempre un utente con ruolo Cliente
     template_name = 'accounts/registrazione.html'
     form_class = CustomUserRegistrationForm
-    success_url = reverse_lazy('catalogo:lista_prodotti')
+    success_url = reverse_lazy('catalogo:product_list')
 
     def form_valid(self, form):
         user = form.save()

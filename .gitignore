@@ -7,3 +7,6 @@ __pycache__/
 .idea/
 #Database
 db.sqlite3
+# File Bootstrap non necessari
+static/css/bootstrap*
+static/js/bootstrap*
