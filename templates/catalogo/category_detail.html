@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %} {{ category.name }} {% endblock %}
+{% block content %}
+
+<h2 class="mb-1"> {{ category.name }} </h2>
+{% if category.description %}
+    <p class="text-muted"> {{ category.description }} </p>
+{% endif %}
+
+{% if products %}
+<div class="row">
+    {% for product in products %}
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+            {% if product.image %}
+                <img src="https://placehold.co/300x200?text={{ product.name|urlencode }}" class="card-img-top" alt="{{ product.name }}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="{{ product.get_absolute_url }}"> {{ product.name }} </a>
+                </h5>
+                <p class="fw-bold"> €{{ product.price }} </p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p> Nessun prodotto in questa categoria </p>
+{% endif %}
+
+{% endblock %}

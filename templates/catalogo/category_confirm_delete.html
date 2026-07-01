@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %} Elimina categoria {% endblock %}
+{% block content %}
+
+<h2 class="mb-4"> Elimina categoria </h2>
+
+<p> Sei sicuro di voler eliminare la categoria <strong> {{ category.name }} </strong>? L'operazione è irreversibile.</p>
+
+{% if category.products.count > 0 %}
+    <div class="alert alert-warning">
+        Attenzione!!! Questa categoria contiene <strong> {{ category.products.count }} prodotti. </strong>
+        Eliminandola, i prodotti non verranno cancellati ma rimarranno senza categoria.
+    </div>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger"> Sì, elimina </button>
+    <a href="{% url 'catalogo:manager_dashboard' %}" class="btn btn-outline-secondary"> Annulla </a>
+</form>
+
+{% endblock %}
