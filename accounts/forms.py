@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from accounts.models import CustomUser
+from accounts.models import CustomUser, Address
 
 class CustomUserRegistrationForm(UserCreationForm):
     """
@@ -58,3 +58,26 @@ class StyledAuthenticationForm(AuthenticationForm):
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder': 'Password'}),
     )
+
+class AddressForm(forms.ModelForm):
+    #form per creare e modificare un indirizzo per la spedizione
+
+    class Meta:
+        model = Address
+        fields = ('address', 'city', 'postal_code', 'province', 'phone', 'is_default')
+        labels = {
+            'address': 'Indirizzo',
+            'city': 'Città',
+            'postal_code': 'CAP',
+            'province': 'Provincia',
+            'phone': 'Telefono',
+            'is_default': 'Imposta come indirizzo predefinito',
+        }
+        widgets = {
+            'address': forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Indirizzo'}),
+            'city': forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Città'}),
+            'postal_code': forms.TextInput(attrs={'class':'form-control', 'placeholder': 'CAP'}),
+            'province': forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Provincia'}),
+            'phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '+39 ....'}),
+            'is_default': forms.CheckboxInput(attrs={'class':'form-check-input'}),
+        }
