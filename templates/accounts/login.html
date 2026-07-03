@@ -13,13 +13,13 @@
                     <label class="form-label"> {{ field.label }} </label>
                     {{ field }}
                     {% if field.errors %}
-                    <div class="text-danger small"> {{ field.errors | join:', ' }}</div>
+                    <div class="text-danger small"> {{ field.errors|join:', ' }}</div>
                     {% endif %}
                 </div>
             {% endfor %}
 
             {% if form.non_field_errors %}
-            <div class="alert alert-danger"> {{ form.non_field_errors | join:', ' }}</div>
+            <div class="alert alert-danger"> {{ form.non_field_errors|join:', ' }}</div>
             {% endif %}
             <button type="submit" class="btn btn-primary"> Accedi </button>
         </form>

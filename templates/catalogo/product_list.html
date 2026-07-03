@@ -44,7 +44,7 @@
                     <h5 class="card-title mt-1">
                         <a href="{{ product.get_absolute_url }}" class="text-decoration-none text-dark"> {{ product.name }} </a>
                     </h5>
-                    <p class="card-text text-muted"> {{ product.description | truncatechars:60 }}</p>
+                    <p class="card-text text-muted"> {{ product.description|truncatechars:60 }}</p>
                     <p class="fw-bold"> €{{ product.price }} </p>
                     {% if not product.is_in_stock %}
                         <span class="badge bg-secondary"> Esaurito </span>

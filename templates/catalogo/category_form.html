@@ -16,7 +16,7 @@
             </label>
             {{ field }}
             {% if field.errors %}
-                <div class="text-danger small"> {{ field.errors | join:', ' }} </div>
+                <div class="text-danger small"> {{ field.errors|join:', ' }} </div>
             {% endif %}
         </div>
     {% endfor %}

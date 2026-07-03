@@ -48,7 +48,7 @@
     {% for product in recent_products %}
         <tr>
             <td><a href="{{ product.get_absolute_url }}"> {{ product.name }} </a></td>
-            <td> {{ product.category.name | default: "-" }} </td>
+            <td> {{ product.category.name|default:"Nessuna" }} </td>
             <td> €{{ product.price }} </td>
             <td>
                 {% if product.stock == 0 %}
