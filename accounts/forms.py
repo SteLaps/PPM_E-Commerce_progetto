@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from accounts.models import CustomUser, Address
+from django.core.exceptions import ValidationError
 
 class CustomUserRegistrationForm(UserCreationForm):
     """
@@ -64,20 +65,38 @@ class AddressForm(forms.ModelForm):
 
     class Meta:
         model = Address
-        fields = ('address', 'city', 'postal_code', 'province', 'phone', 'is_default')
+        fields = ('address', 'city', 'postal_code', 'province', 'phone_number', 'is_default')
         labels = {
             'address': 'Indirizzo',
             'city': 'Città',
             'postal_code': 'CAP',
             'province': 'Provincia',
-            'phone': 'Telefono',
+            'phone_number': 'Telefono',
             'is_default': 'Imposta come indirizzo predefinito',
         }
         widgets = {
-            'address': forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Indirizzo'}),
-            'city': forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Città'}),
-            'postal_code': forms.TextInput(attrs={'class':'form-control', 'placeholder': 'CAP'}),
-            'province': forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Provincia'}),
-            'phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '+39 ....'}),
-            'is_default': forms.CheckboxInput(attrs={'class':'form-check-input'}),
+            'address': forms.TextInput(attrs={'placeholder': 'Via Roma, 1', 'class': 'form-control'}),
+            'city': forms.TextInput(attrs={'placeholder': 'Firenze', 'class': 'form-control'}),
+            'postal_code': forms.TextInput(attrs={'placeholder': '12345', 'class': 'form-control'}),
+            'province': forms.TextInput(attrs={'placeholder': 'FI', 'class': 'form-control'}),
+            'phone_number': forms.TextInput(attrs={'placeholder': '+39 123 456 7890', 'class': 'form-control'}),
         }
+
+    def clean_postal_code(self):
+        data = self.cleaned_data['postal_code']
+        if not data.isdigit():
+            raise ValidationError('Il CAP deve contenere solo numeri.')
+        if len(data) != 5:
+            raise ValidationError('Il CAP deve contenere 5 cifre.')
+        return data
+
+    def clean_phone_number(self):
+        data = self.cleaned_data['phone_number']
+        clean_data = data.replace(' ', '').replace('+', '')
+        if not clean_data.isdigit():
+            raise ValidationError('Il numero di telefono può contenere solo numeri e il simbolo "+".')
+        return data
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['is_default'].widget.attrs.update({'class':'form-check-input'})

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %} Elimina indirizzo {% endblock %}
+{% block content %}
+
+<h2 class="mb-4"> Elimina indirizzo </h2>
+
+<p> Sei sicuro di voler eliminare questo indirizzo? </p>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <p class="mb-1"><strong> {{ address.address }} </strong></p>
+        <p class="mb-1"> {{ address.city }} {{ address.postal_code }} ({{ address.province }})</p>
+        <p class="mb-0 text-muted"> {{ address.phone }}</p>
+    </div>
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger"> Sì, elimina </button>
+    <a href="{% url 'accounts:address_list' %}" class="btn btn-outline-secondary"> Annulla </a>
+</form>
+
+{% endblock %}

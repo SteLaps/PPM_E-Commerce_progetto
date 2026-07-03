@@ -32,6 +32,19 @@ class CustomUser(AbstractUser):
 
 class Address(models.Model):
     #indirizzo di spedizione associato ad un cliente; un cliente può avere più indirizzi tra cui scegliere
+
+    #validatore per il CAP (esattamente 5 cifre)
+    cap_validator = RegexValidator(
+        regex=r'^\d{5}$',
+        message='Il CAP deve contenere esattamente 5 cifre.'
+    )
+
+    #validatore per il telefono (da 9 a 12 cifre)
+    phone_validator = RegexValidator(
+        regex=r'^\+?1?\d{9,12}$',
+        message="Inserire un numero di telefono valido (da 9 a 12 cifre).",
+    )
+
     user = models.ForeignKey(
         CustomUser,
         on_delete=models.CASCADE,
@@ -48,25 +61,15 @@ class Address(models.Model):
         verbose_name="Provincia")
     postal_code = models.CharField(
         max_length=10,
-        verbose_name="CAP")
+        verbose_name="CAP",
+        validators=[cap_validator])
     phone_number = models.CharField(
         max_length=20,
-        verbose_name="Numero di Telefono")
+        verbose_name="Numero di Telefono",
+        validators=[phone_validator])
     is_default = models.BooleanField(
         default=False,
         verbose_name="Indirizzo Predefinito")
-
-    #validatore per il CAP (esattamente 5 cifre)
-    cap_validator = RegexValidator(
-        regex=r'^\d{5}$',
-        message='Il CAP deve contenere esattamente 5 cifre.'
-    )
-
-    #validatore per il telefono (da 9 a 12 cifre)
-    phone_validator = RegexValidator(
-        regex=r'^\+?1?\d{9,12}$',
-        message="Inserire un numero di telefono valido (da 9 a 12 cifre).",
-    )
 
     class Meta:
         verbose_name = "Indirizzo"
