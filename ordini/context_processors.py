@@ -1,3 +1,7 @@
+from carrello import Carrello
+
 def carrello_totale(request):
-    #placeholder (per ora)
-    return {'carrello_count': 0}
+    #rende il carrello disponibile in tutti i template
+
+    cart = Carrello(request)
+    return {'carrello': cart}

@@ -28,10 +28,23 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'catalogo:manager_dashboard' %}"> Dashboard Manager </a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'ordini:manager_order_list' %}"> Gestione ordini </a>
+                </li>
                 {% endif %}
             </ul>
 
             <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'ordini:cart_detail' %}">
+                        Carrello
+                        {% if carrello|length > 0 %}
+                            <span class="badge bg-danger"> {{ carrello|length }} </span>
+                        {% endif %}
+                    </a>
+                </li>
+            
                 {% if user.is_authenticated %}
                 <li class="nav-item">
                     <span class="navbar-text me-3"> {{ user.username }}</span>
@@ -43,6 +56,10 @@
 
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'accounts:address_list' %}"> I miei indirizzi </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class='nav-link' href="{% url 'ordini:order_list' %}"> I miei ordini </a>
                 </li>
 
                 <li class="nav-item">
