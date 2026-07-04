@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %} Carrello {% endblock %}
+{% block content %}
+
+<h2 class="mb-4"> Il tuo carrello </h2>
+
+{% if cart|length > 0 %}
+<div class="row">
+    <div class="col-md-8">
+        {% for item in cart %}
+            <div class="card mb-3">
+                <div class="card-body d-flex align-items-center gap-3">
+                    <img src="https://placehold.co/80x80?text={{ item.name|urlencode }}" class="rounded" alt="{{ item.name }}">
+                    <div class="flex-grow-1">
+                        <h6 class="mb-8"> {{ item.name }} </h6>
+                        <small class="text-muted"> €{{ item.price }} x {{ item.quantity }} = <strong>€{{ item.subtotal }}</strong></small>
+                    </div>
+
+                    <form method="post" action="{% url 'ordini:cart_remove' item.product.pk %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-danger btn-sm"> Rimuovi </button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="mb-3"> Riepilogo </h5>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted"> Articoli </span>
+                    <span> {{ cart|length }} </span>
+                </div>
+
+                <div class="d-flex justify-content-between mb-3">
+                    <strong> Totale </strong>
+                    <strong> €{{ cart.total_price }} </strong>
+                </div>
+
+                {% if user.is_authenticated %}
+                    <a href="{% url 'ordini:checkout' %}" class="btn btn-primary w-100"> Procedi al checkout </a>
+                {% else %}
+                    <a href="{% url 'accounts:login' %}" class="btn btn-primary w-100"> Accedi per acquistare </a>
+                {% endif %}
+                <a href="{% url 'catalogo:product_list' %}" class="btn btn-outline-secondary w-100 mt-2"> Continua a fare shopping </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% else %}
+<div class="text-center py-5">
+    <p class="text-muted fs-5"> Il carrello è vuoto </p>
+    <a href="{% url 'catalogo:product_list' %}" class="btn btn-primary"> Sfoglia il catalogo </a>
+</div>
+{% endif %}
+
+{% endblock %}

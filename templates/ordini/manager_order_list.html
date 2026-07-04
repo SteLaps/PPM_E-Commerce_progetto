@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %} Gestione ordini {% endblock %}
+{% block content %}
+
+<h2 class="mb-4"> Gestione ordini </h2>
+
+{% if orders %}
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th> # </th>
+                    <th> Cliente </th>
+                    <th> Data </th>
+                    <th> Totale </th>
+                    <th> Stato </th>
+                    <th> Azioni </th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td> #{{ order.pk }} </td>
+                    <td> {{ order.user.username }} </td>
+                    <td> {{ order.created_at|date:"d/m/Y" }} </td>
+                    <td> €{{ order.total_price }} </td>
+                    <td>
+                        <span class="badge
+                                    {% if order.status == 'pending' %}bg-warning text-dark
+                                    {% elif order.status == 'confirmed' %}bg-primary
+                                    {% elif order.status == 'shipped' %}bg-info text-dark
+                                    {% elif order.status == 'delivered' %}bg-success
+                                    {% else %}bg-secondary{% endif %}">
+                        {{ order.get_status_display }}
+                        </span>
+                    </td>
+                    <td>
+                        <a href="{% url 'ordini:order_detail' order.pk %}" class="btn btn-sm btn-outline-secondary"> Dettagli </a>
+                        <a href="{% url 'ordini:manager_order_update' order.pk %}" class="btn btn-sm btn-outline-primary"> Aggiorna stato </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <p class="text-muted">Nessun ordine ancora effettuato. </p>
+{% endif %}
+
+{% endblock %}

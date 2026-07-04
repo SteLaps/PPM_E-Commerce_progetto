@@ -28,6 +28,13 @@
 
         {% if product.is_in_stock %}
             <p class="text-success"> Disponibile ({{ product.stock }} in magazzino) </p>
+            <form method="post" action="{% url 'ordini:cart_add' product.pk %}">
+                {% csrf_token %}
+                <div class="d-flex gap-2 mt-3">
+                    <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" class="form-control" style="width: 80px;">
+                    <button type="submit" class="btn btn-primary"> Aggiungi al carrello </button>
+                </div>
+            </form>
         {% else %}
             <span class="badge bg-secondary"> Prodotto esaurito </span>
         {% endif %}

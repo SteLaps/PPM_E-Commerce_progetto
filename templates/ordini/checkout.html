@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %} Checkout {% endblock %}
+{% block content %}
+
+<h2 class="mb-4"> Checkout </h2>
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="mb-3"> Seleziona indirizzo di spedizione </h5>
+                <form method="post">
+                    {% csrf_token %}
+                    {% for choice in form.address %}
+                        <div class="form-check mb-2">
+                            {{ choice.tag }}
+                            <label class="form-check-label" for="{{ choice.id_for_label }}">
+                                {{ choice.choice_label }}
+                            </label>
+                        </div>
+                    {% endfor %}
+
+                    {% if form.address.errors %}
+                        <div class="text-danger small"> {{ form.address.errors|join:', ' }}</div>
+                    {% endif %}
+                    <hr>
+                    <a href="{% url 'accounts:address_create' %}" class="btn btn-outline-secondary btn-sm mb-3">
+                        + Aggiungi un nuovo indirizzo
+                    </a>
+                    <br>
+                    <button type="submit" class="btn btn-primary"> Conferma ordine </button>
+                    <a href="{% url 'ordini:cart_detail' %}" class="btn btn-outline-secondary"> Torna al carrello </a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-5">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="mb-3"> Riepilogo ordine </h5>
+                {% for item in cart %}
+                    <div class="d-flex justify-content-between mb-2 small">
+                        <span> {{ item.name }} x {{ item.quantity }} </span>
+                        <span> €{{ item.subtotal }}</span>
+                    </div>
+                {% endfor %}
+                <hr>
+                <div class="d-flex justify-content-between fw-bold">
+                    <span> Totale </span>
+                    <span> €{{ cart.total_price }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

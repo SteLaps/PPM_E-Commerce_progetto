@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %} Aggiorna stato ordine #{{ order.pk }} {% endblock %}
+{% block content %}
+
+<h2 class="mb-4"> Aggiorna stato - Ordine #{{ order.pk }} </h2>
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card">
+            <div class="card-body">
+                <p class="text-muted"> Cliente: <strong>{{ order.user.username }}</strong></p>
+                <p class="text-muted"> Data: <strong>{{ order.created_at|date:"d/m/Y" }}</strong></p>
+                <p class="text-muted"> Totale: <strong>€{{ order.total_price }}</strong></p>
+
+                <hr>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label fw-bold"> Nuovo stato </label>
+                        <select name="status" class="form-select">
+                            {% for value, label in status_choices %}
+                                <option value="{{ value }}" {% if value == order.status %}selected{% endif %}>
+                                {{ label }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary"> Salva </button>
+                    <a href="{% url 'ordini:manager_order_list' %}" class="btn btn-outline-secondary"> Annulla </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

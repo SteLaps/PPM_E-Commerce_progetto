@@ -1,3 +1,5 @@
+from itertools import product
+
 from django.db.models import Model
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
@@ -25,7 +27,7 @@ def cart_detail(request):
 
 @require_POST
 def cart_add(request, product_id):
-    product = get_object_or_404(Product, pk=product_id, avaiable=True)
+    product = get_object_or_404(Product, pk=product_id, available=True)
     form = AddToCartForm(request.POST)
     if form.is_valid():
         cart = Carrello(request)
@@ -56,6 +58,19 @@ def checkout(request):
     if request.method == 'POST':
         form = CheckoutForm(user=request.user, data=request.POST)
         if form.is_valid():
+            errori_stock = []
+            for item in cart:
+                product = item['product']
+                if item['quantity'] > product.stock:
+                    errori_stock.append(
+                        f'"{product.name}": richiesti {item['quantity']}, disponibili {product.stock}.'
+                    )
+
+            if errori_stock:
+                for errore in errori_stock:
+                    messages.error(request, errore)
+                return render(request, 'ordini/checkout.html', {'cart': cart, 'form': form})
+            
             address = form.cleaned_data['address']
             order = Order.objects.create(
                 user=request.user,

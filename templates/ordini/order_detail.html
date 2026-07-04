@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %} Ordine #{{ order.pk }} {% endblock %}
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'ordini:order_list' %}"> I miei ordini </a></li>
+        <li class="breadcrumb-item active"> Ordine #{{ order.pk }} </li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-md-8">
+        <h4 class="mb-3"> Ordine #{{ order.pk }} </h4>
+        <table class="table">
+            <thead class="table-light">
+                <tr>
+                    <th> Prodotto </th>
+                    <th> Prezzo unitario </th>
+                    <th> Quantità </th>
+                    <th> Subtotale </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for item in order.items.all %}
+                    <tr>
+                        <td> {{ item.product_name }} </td>
+                        <td> €{{ item.price }} </td>
+                        <td> {{ item.quantity }} </td>
+                        <td> €{{ item.subtotal }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <th colspan="3" class="text-end"> Totale </th>
+                    <th> €{{ order.total_price }} </th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h6> Stato ordine </h6>
+                <span class="badge fs-6
+                            {% if order.status == 'pending' %}bg-warning text-dark
+                            {% elif order.status == 'confirmed' %}bg-primary
+                            {% elif order.status == 'shipped' %}bg-info text-dark
+                            {% elif order.status == 'delivered' %}bg-success
+                            {% else %}bg-secondary{% endif %}">
+                {{ order.get_status_display }}
+                </span>
+                <hr>
+                <h6> Indirizzo di spedizione </h6>
+                <p class="text-muted small mb-0"> {{ order.shipping_address }} </p>
+                <p class="text-muted small mb-0"> {{ order.shipping_city }} {{ order.shipping_postal_code }} ({{ order.shipping_province }}) </p>
+                <p class="text-muted small mb-0"> Tel: {{ order.shipping_phone }} </p>
+                <hr>
+                <small class="text-muted"> Effettuato il {{ order.created_at|date:"d/m/Y H:i" }}</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
