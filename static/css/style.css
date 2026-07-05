@@ -1,0 +1,338 @@
+body {
+    background-color: whitesmoke;
+    color: dimgray;
+    font-size: 15px;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+}
+
+a {
+    color: midnightblue;
+    text-decoration: none;
+}
+
+a:hover {
+    color: goldenrod;
+}
+
+/* NAVBAR */
+.navbar {
+    background-color: midnightblue !important;
+    border-bottom: 3px solid goldenrod;
+    padding: 12px 0;
+}
+
+.navbar-brand {
+    font-size: 22px;
+    font-weight: 700;
+    color: white !important;
+    letter-spacing: 0.5px;
+}
+
+.navbar-brand:hover {
+    color: goldenrod !important;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-weight: 500;
+    padding: 6px 13px !important;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.nav-link:hover {
+    color: white !important;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-text {
+    color: rgba(255, 255, 255, 0.7) !important;
+    font-size: 14px;
+}
+
+/* BOTTONI */
+.btn-primary {
+    background-color: midnightblue;
+    border-color: midnightblue;
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 7px 19px;
+    transition: all 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: navy;
+    border-color: navy;
+    transform: translateY(-1px);
+}
+
+.btn-outline-primary {
+    color: midnightblue;
+    border-color: midnightblue;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.btn-outline-primary:hover {
+    background-color: midnightblue;
+    border-color: midnightblue;
+}
+
+.btn-outline-secondary {
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.btn-outline-danger {
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.btn-outline-light {
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+/* CARD */
+.card {
+    background-color: white;
+    border: 1px solid gainsboro;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.card:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.14);
+}
+
+.card-title a {
+    color: dimgray;
+    font-weight: 600;
+}
+
+.card-title a:hover {
+    color: midnightblue;
+}
+
+.card-footer {
+    background-color: white;
+    border-top: 1px solid gainsboro;
+    border-radius: 0 0 10px 10px;
+}
+
+/* PRODOTTI */
+.card img {
+    border-radius: 10px 10px 0 0;
+    object-fit: cover;
+    height: 200px;
+    width: 100%;
+}
+
+.card .card-body .fw-bold {
+    color: midnightblue;
+    font-size: 18px;
+}
+
+/* FORM e INPUT */
+.form-control {
+    border: 2px solid gainsboro;
+    border-radius: 8px;
+    padding: 8px 14px;
+    background-color: white;
+    color: dimgray;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus {
+    border-color: midnightblue;
+    box-shadow: 0 0 0 3px rgba(44, 62, 122, 0.12);
+    outline: none;
+}
+
+.form-select {
+    border: 2px solid gainsboro;
+    border-radius: 8px;
+    padding: 8px 14px;
+    background-color: white;
+    color: dimgray;
+}
+
+.form-select:focus {
+    border-color: midnightblue;
+    box-shadow: 0 0 0 3px rgba(44, 62, 122, 0.12);
+}
+
+.form-label {
+    font-weight: 600;
+    color: dimgray;
+    margin-bottom: 6px;
+}
+
+/* CHECKBOX */
+.form-check-input {
+    width: 18px;
+    height: 18px;
+    border: 2px solid midnightblue;
+    background-color: white;
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: midnightblue;
+    border-color: midnightblue;
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 3px rgba(44, 62, 122, 0.15);
+}
+
+.form-check-label {
+    color: dimgray;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* ALERT e MESSAGGI */
+.alert {
+    border-radius: 10px;
+    border: none;
+    font-weight: 500;
+    padding: 14px 19px;
+}
+
+.alert-success {
+    background-color: honeydew;
+    color: darkgreen;
+    border-left: 4px solid forestgreen;
+}
+
+.alert-danger {
+    background-color: mistyrose;
+    color: darkred;
+    border-left: 4px solid crimson;
+}
+
+.alert-warning {
+    background-color: lemonchiffon;
+    color: darkgoldenrod;
+    border-left: 4px solid gold;
+}
+
+.alert-info {
+    background-color: lightcyan;
+    color: teal;
+    border-left: 4px solid cadetblue;
+}
+
+/* TABELLE */
+.table {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead th {
+    background-color: midnightblue;
+    color: white;
+    font-weight: 600;
+    border: none;
+    padding: 14px 16px;
+}
+
+.table tbody tr {
+    transition: background-color 0.15s;
+}
+
+.table tbody tr:hover {
+    background-color: lavender;
+}
+
+.table td {
+    padding: 12px 16px;
+    vertical-align: middle;
+    border-color: gainsboro;
+}
+
+/* BADGE */
+.badge {
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+/* BREADCRUMB */
+.breadcrumb {
+    background-color: transparent;
+    padding: 0;
+    font-size: 14px;
+}
+
+.breadcrumb-item a {
+    color: midnightblue;
+}
+
+.breadcrumb-item.active {
+    color: slategray;
+}
+
+/* PAGINAZIONE */
+.pagination .page-link {
+    color: midnightblue;
+    border-color: gainsboro;
+    border-radius: 6px;
+    margin: 0 2px;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: midnightblue;
+    border-color: midnightblue;
+}
+
+/* FOOTER */
+footer {
+    background-color: midnightblue;
+    color: rgba(255, 255, 255, 0.75);
+    padding: 24px 0;
+    margin-top: 48px;
+    font-size: 14px;
+}
+
+footer a {
+    color: goldenrod;
+}
+
+footer a:hover {
+    color: white;
+}
+
+/* RESPONSIVE per TELEFONO */
+@media (max-width: 768px) {
+    .card img {
+        height: 160px;
+    }
+
+    .navbar-brand {
+        font-size: 19px;
+    }
+
+    .table-responsive {
+        font-size: 14px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    .btn {
+        font-size: 14px;
+        padding: 6px 14px;
+    }
+}

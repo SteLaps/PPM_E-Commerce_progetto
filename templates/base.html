@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %} Negozio {% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 
 <body>
@@ -47,7 +48,7 @@
             
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <span class="navbar-text me-3"> {{ user.username }}</span>
+                    <span class="nav-link" style="color: goldenrod !important; font-weight: 600;"> {{ user.username }}</span>
                 </li>
 
                 <li class="nav-item">
