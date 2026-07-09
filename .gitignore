@@ -7,4 +7,5 @@ __pycache__/
 .idea/
 # File Bootstrap non necessari
 staticfiles/
-static/
+static/css/bootstrap/*
+static/js/bootstrap*
