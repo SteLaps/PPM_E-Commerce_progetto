@@ -129,5 +129,4 @@ Username | Password | Ruolo
 
 ## Link di deployment
 
-da inserire
-
+https://stefanolapi04.eu.pythonanywhere.com
