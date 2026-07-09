@@ -6,5 +6,5 @@ __pycache__/
 #Impostazioni di PyCharm
 .idea/
 # File Bootstrap non necessari
-static/css/bootstrap*
-static/js/bootstrap*
+staticfiles/
+static/
